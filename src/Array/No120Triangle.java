@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Error ！！！！！ 正确的在DynamicProgramming 文件夹下
  * Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
 
  For example, given the following triangle
