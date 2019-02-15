@@ -1,7 +1,7 @@
 package Tree;
 
-import Tree.TreeNode;
-import sun.reflect.generics.tree.Tree;
+
+import common.TreeNode;
 
 /**
  * Two elements of a binary search tree (BST) are swapped by mistake.
