@@ -14,17 +14,17 @@ import common.TreeNode;
  */
 public class No18SubtreeofAnotherTree {
 
-    public boolean isSubtree(TreeNode s, TreeNode t) {
+    public boolean HasSubtree(TreeNode s, TreeNode t) {
         boolean result = false;
         if(s!=null && t!=null){
             if(s.val == t.val){
                 result = hasSubTree(s,t);
             }
             if(!result){
-                result = isSubtree(s.left,t);
+                result = HasSubtree(s.left,t);
             }
             if(!result){
-                result = isSubtree(s.right,t);
+                result = HasSubtree(s.right,t);
             }
         }
         return result;
@@ -39,11 +39,8 @@ public class No18SubtreeofAnotherTree {
      * @return
      */
     public boolean hasSubTree(TreeNode s, TreeNode t){
-        if(t==null && s==null){
-            return true;
-        }
         if(t==null){
-            return false;
+            return true;
         }
         if(s==null){
             return  false;
