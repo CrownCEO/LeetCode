@@ -9,10 +9,13 @@ import common.RandomListNode;
  */
 public class No25Clone {
 
-    public RandomListNode Clone(RandomListNode pHead)
-    {
+    public RandomListNode Clone(RandomListNode pHead) {
+        if(pHead==null){
+            return null;
+        }
         pHead = copy(pHead);
         pHead = copyRandom(pHead);
+        pHead = split(pHead);
         return pHead;
     }
 
@@ -34,13 +37,35 @@ public class No25Clone {
     public RandomListNode copyRandom(RandomListNode pHead){
         RandomListNode node = pHead;
         while(node!=null){
-            if(node.next!=null){
-                node.next.random = node.random.next;
-                node = node.next.next;
+            RandomListNode copyNode = node.next;
+            if(node.random!=null){
+                copyNode.random = node.random.next;
             }
-
+            node = copyNode.next;
         }
         return pHead;
+    }
+
+    public RandomListNode split(RandomListNode pHead){
+        RandomListNode node = pHead;
+        RandomListNode newHead = null;
+        RandomListNode newNode = null;
+
+        if(node!=null){
+            newHead = node.next;
+            newNode = newHead;
+            node.next = newHead.next;
+            node = node.next;
+        }
+
+        while(node!=null){
+            newNode.next = node.next;
+            newNode = newNode.next;
+            node.next = newNode.next;
+            node = node.next;
+
+        }
+        return newHead;
     }
 
     public static void main(String[] args) {

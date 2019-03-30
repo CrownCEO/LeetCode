@@ -22,55 +22,37 @@ public class No56MergeIntervals {
     }
 
     public List<Interval> merge(List<Interval> intervals) {
-
-        List<Interval> result = new ArrayList<>();
-        if(intervals==null || intervals.size()==0){
-            return result;
-        }
-        if(intervals.size()==1){
-            return intervals;
+        List<Interval> res = new ArrayList<>();
+        if(intervals.size()<1){
+            return res;
         }
 
-        Collections.sort(intervals, new Comparator<Interval>() {
+        Collections.sort(intervals,new Comparator<Interval>(){
             @Override
-            public int compare(Interval o1, Interval o2) {
-                return o1.start - o2.start;
+            public int compare(Interval i1,Interval i2){
+                return i1.start - i2.start;
             }
         });
-
-        for(int i = 0;i<intervals.size();i++){
-
-            Interval interval = intervals.get(i);
-            if(i==0){
-                result.add(interval);
-                continue;
+        Interval temp = null;
+        for(Interval interval:intervals){
+            if(temp == null || temp.end<interval.start){
+                res.add(interval);
+                temp = interval;
+            }else {
+                temp.end = Math.max(temp.end,interval.end);
             }
-            Interval oldInterval = result.get(result.size() - 1);
-            if(interval.start <= oldInterval.end){
-                result.remove(result.size() - 1);
-                if(interval.end <=oldInterval.end){
-                    result.add(oldInterval);
-                }else{
-                    result.add(new Interval(oldInterval.start,interval.end));
-                }
-
-            }else{
-                result.add(interval);
-            }
-
         }
-
-        return result;
+        return res;
     }
 
     public static void main(String[] args) {
         No56MergeIntervals intervals = new No56MergeIntervals();
         List<No56MergeIntervals.Interval> intervals1 = new ArrayList<>();
-        intervals1.add(new No56MergeIntervals.Interval(1,4));
-        intervals1.add(new No56MergeIntervals.Interval(0,2));
-        intervals1.add(new No56MergeIntervals.Interval(3,5));
+        intervals1.add(new No56MergeIntervals.Interval(1,3));
+        intervals1.add(new No56MergeIntervals.Interval(2,6));
+        intervals1.add(new No56MergeIntervals.Interval(8,10));
         for(Interval interval:intervals.merge(intervals1)){
-            System.out.println(interval.start + "" + interval.end);
+            System.out.println("[" + interval.start + " " + interval.end + "]");
         }
 //        System.out.println(intervals.merge(intervals1));
     }
